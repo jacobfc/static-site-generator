@@ -14,9 +14,5 @@ class LeafNode(HTMLNode):
         if self.tag is None:
             return self.value
 
-        html_props = ""
-        if self.props is not None:
-            html_props = self.props_to_html()
-
-        html_full = f"<{self.tag}{html_props}>{self.value}</{self.tag}>"
+        html_full = f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
         return html_full

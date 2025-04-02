@@ -9,6 +9,10 @@ class HTMLNode:
         raise NotImplementedError
 
     def props_to_html(self):
+        # prevent type issues if props has no value
+        if self.props is None:
+            return ""
+
         # convert dict to ` key=value` , with leading space
         prop_html_string = ""
         for item in self.props:
