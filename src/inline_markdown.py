@@ -60,6 +60,9 @@ def split_nodes_image(old_nodes):
             image_text, image_link = image_tuple
             split_text = remaining_text.split(f"![{image_text}]({image_link})", 1)
 
+            if len(split_text) != 2:
+                raise ValueError("invalid markdown, image section not closed")
+
             # add prior text and image to the list of nodes (if non-empty string)
             if split_text[0] != "":
                 prior_text = TextNode(split_text[0], TextType.NORMAL_TEXT)
@@ -99,6 +102,9 @@ def split_nodes_link(old_nodes):
         for link_tuple in list_link_tuples:
             link_text, link_url = link_tuple
             split_text = remaining_text.split(f"[{link_text}]({link_url})", 1)
+
+            if len(split_text) != 2:
+                raise ValueError("invalid markdown, link section not closed")
 
             # add prior text and link to the list of nodes (if non-empty string)
             if split_text[0] != "":
