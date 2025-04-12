@@ -6,6 +6,7 @@ from inline_markdown import (
     extract_markdown_links,
     split_nodes_image,
     split_nodes_link,
+    text_to_textnodes,
 )
 from textnode import TextNode, TextType
 
@@ -165,6 +166,31 @@ class TestImageLinkNodeSplitter(unittest.TestCase):
             ],
             new_nodes,
         )
+
+
+class TestTextToTextNodes(unittest.TestCase):
+    def test_text_to_textnodes_example(self):
+        input_text = (
+            "This is **text** with an _italic_ word and a `code block` and"
+            " an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        )
+
+        expected_output = [
+            TextNode("This is ", TextType.NORMAL_TEXT),
+            TextNode("text", TextType.BOLD_TEXT),
+            TextNode(" with an ", TextType.NORMAL_TEXT),
+            TextNode("italic", TextType.ITALIC_TEXT),
+            TextNode(" word and a ", TextType.NORMAL_TEXT),
+            TextNode("code block", TextType.CODE_TEXT),
+            TextNode(" and an ", TextType.NORMAL_TEXT),
+            TextNode(
+                "obi wan image", TextType.IMAGES, "https://i.imgur.com/fJRm4Vk.jpeg"
+            ),
+            TextNode(" and a ", TextType.NORMAL_TEXT),
+            TextNode("link", TextType.LINKS, "https://boot.dev"),
+        ]
+        actual_output = text_to_textnodes(input_text)
+        self.assertEqual(expected_output, actual_output)
 
 
 if __name__ == "__main__":
