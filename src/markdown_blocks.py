@@ -3,7 +3,7 @@ from enum import Enum
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
-    HEADING = "HEADING"
+    HEADING = "heading"
     CODE = "code"
     QUOTE = "quote"
     UNORDERED_LIST = "unordered_list"
