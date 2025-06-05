@@ -52,7 +52,8 @@ def markdown_to_html_node(markdown):
 
                 header_string = "h" + str(num_leading_hashes)
                 # remove and space hashes from start of text
-                cleaned_block = block[num_leading_hashes + 1 :]
+                chars_to_remove = num_leading_hashes + 1
+                cleaned_block = block[chars_to_remove:]
                 children_html_nodes = text_to_children(cleaned_block)
                 parent_block_node = ParentNode(header_string, children_html_nodes)
                 blocks_output_list.append(parent_block_node)
