@@ -1,5 +1,5 @@
 import unittest
-from markdown_to_html import markdown_to_html_node
+from markdown_to_html import markdown_to_html_node, extract_title
 
 
 class TestMarkdownToHTMLFullPages(unittest.TestCase):
@@ -100,3 +100,48 @@ this is paragraph text
             html,
             "<div><blockquote>This is a blockquote block</blockquote><p>this is paragraph text</p></div>",
         )
+
+
+class TestExtractTitleFromMarkdown(unittest.TestCase):
+    def test_headings(self):
+        md = """
+# this is an h1
+
+this is paragraph text
+
+## this is an h2
+"""
+
+        title = extract_title(md)
+        self.assertEqual(
+            title,
+            "this is an h1",
+        )
+
+    def test_multiple_headings(self):
+        md = """
+There is text before the h1
+# the h1 comes later
+
+this is paragraph text
+
+## this is an h2
+
+# there is a second h1, but it is ignored
+
+"""
+
+        title = extract_title(md)
+        self.assertEqual(
+            title,
+            "the h1 comes later",
+        )
+
+    def test_exception_if_no_heading(self):
+        md = """
+There is no h1 and in this text
+## this is an h2
+and some more text
+"""
+
+        self.assertRaises(Exception, extract_title, md)
