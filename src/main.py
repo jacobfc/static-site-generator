@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 from copy_recursive import copy_files_recursive
 from generate_page import generate_pages_recursive
 
@@ -10,6 +11,12 @@ template_path = "./template.html"
 
 
 def main():
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+
+    else:
+        basepath = "/"
+
     abs_dest_dir = os.path.abspath(dir_path_public)
     # delete contents of destination directory, if it exists
     if os.path.exists(abs_dest_dir):
@@ -22,7 +29,7 @@ def main():
     copy_files_recursive(dir_path_static, dir_path_public)
 
     print(f"Recursively generating html pages from markdown in {dir_path_content}...")
-    generate_pages_recursive(dir_path_content, template_path, dir_path_public)
+    generate_pages_recursive(dir_path_content, template_path, dir_path_public, basepath)
 
 
 if __name__ == "__main__":
