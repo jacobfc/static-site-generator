@@ -106,4 +106,4 @@ def extract_title(markdown):
             return line.lstrip("#").strip()
 
     # if no h1 header:
-    raise Exception("No h1 header in the markdown - no title to extract")
+    raise ValueError("No h1 header in the markdown - no title to extract")
