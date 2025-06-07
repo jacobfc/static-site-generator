@@ -1,7 +1,7 @@
 import os
 import shutil
 from copy_recursive import copy_files_recursive
-from generate_page import generate_page
+from generate_page import generate_pages_recursive
 
 dir_path_static = "./static"
 dir_path_public = "./public"
@@ -21,24 +21,8 @@ def main():
     print("Copying static files to public directory...")
     copy_files_recursive(dir_path_static, dir_path_public)
 
-    generate_page("./content/index.md", template_path, "./public/index.html")
-
-    generate_page(
-        "./content/blog/glorfindel/index.md",
-        template_path,
-        "./public/blog/glorfindel/index.html",
-    )
-    generate_page(
-        "./content/blog/tom/index.md", template_path, "./public/blog/tom/index.html"
-    )
-    generate_page(
-        "./content/blog/majesty/index.md",
-        template_path,
-        "./public/blog/majesty/index.html",
-    )
-    generate_page(
-        "./content/contact/index.md", template_path, "./public/contact/index.html"
-    )
+    print(f"Recursively generating html pages from markdown in {dir_path_content}...")
+    generate_pages_recursive(dir_path_content, template_path, dir_path_public)
 
 
 if __name__ == "__main__":
