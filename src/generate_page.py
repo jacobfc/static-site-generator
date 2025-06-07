@@ -25,8 +25,8 @@ def generate_page(from_path, template_path, dest_path, basepath):
     output_html_page = (
         template.replace("{{ Title }}", title)
         .replace("{{ Content }}", html_content)
-        .replace('href="/', f"href={basepath}")
-        .replace('src="/', f"src={basepath}")
+        .replace('href="/', f'href="{basepath}')
+        .replace('src="/', f'src="{basepath}')
     )
 
     # create necessary folders for output file, if they don't already exist

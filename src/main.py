@@ -5,7 +5,10 @@ from copy_recursive import copy_files_recursive
 from generate_page import generate_pages_recursive
 
 dir_path_static = "./static"
-dir_path_public = "./public"
+
+# dir_path_public = "./public"
+dir_path_public = "./docs"  # GitHub pages default
+
 dir_path_content = "./content"
 template_path = "./template.html"
 
